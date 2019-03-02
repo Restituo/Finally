@@ -10,7 +10,8 @@ const userSchema = new Schema({
         unique: true
     },
     password:{
-        type: String
+        type: String,
+        bcrypt: true
     },
     email:{
         type: String,
