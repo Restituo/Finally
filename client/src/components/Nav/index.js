@@ -11,14 +11,14 @@ function Nav() {
                 <NavLink to="/login" className="btn btn-outline-primary">Login</NavLink>
             </li>
             <li className="nav-item">
-                <NavLink to="/signup" className="btn btn-primary">Signup</NavLink>
+                <NavLink to="/signup" className="btn btn-primary">Sign up</NavLink>
             </li>
         </ul>
     );
 
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
-                <NavLink to="/" className="navbar-brand">Fake Reddit</NavLink>
+                <h1 className="navbar-brand">Fake Reddit</h1>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>

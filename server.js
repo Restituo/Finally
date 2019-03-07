@@ -1,9 +1,11 @@
+//Required Package
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+//Required Routes
 const routes = require("./routes");
 const PORT = process.env.PORT || 3001;
-const app = express();
+let app = express();
 
 // Define middleware here
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -13,7 +15,7 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Add routes, both API and view
+// Add routes
 app.use(routes);
 
 // Connect to the Mongo DB

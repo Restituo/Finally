@@ -7,16 +7,24 @@ const articleSchema = new Schema ({
         required: true
     },
     content: {
-        type: String
+        type: String,
+        required: true
     },
     comment: {
         type: String
     },
     author: {
-        type: String
+        type: String,
+        required: true
     },
     authorID: {
-        type: String
+        type: String,
+        required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now,
+        required: true
     }
 });
 
