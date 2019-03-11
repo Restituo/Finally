@@ -1,25 +1,40 @@
-//Required Package
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-//Required Routes
-const routes = require("./routes");
-const PORT = process.env.PORT || 3001;
-let app = express();
+const app = express();
+const PORT = process.env.PORT || 3000;
+const session = require('express-session')
+const passport = require('./passport');
+const user = require('./routes/user')
+const routes = require('./routes/api')
+const MongoStore = require('connect-mongo')(session)
 
-// Define middleware here
+// Sessions
+app.use(
+	session({
+		secret: 'keyboard-cat', 
+		resave: false, //required
+		saveUninitialized: false //required
+	})
+)
+
+// Passport
+app.use(passport.initialize())
+app.use(passport.session()) 
+//Middleware 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// Serve up static assets (usually on heroku)
+// Serve up static assets
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-// Add routes
-app.use(routes);
-
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fakereddit");
+
+// Add routes
+app.use('/user', user)
+app.use('/', routes)
 
 // Start the API server
 app.listen(PORT, function() {
