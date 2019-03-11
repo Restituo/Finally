@@ -1,27 +1,69 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import React, { Component } from 'react';
+import axios from 'axios'
+import { Route } from 'react-router-dom'
+import './App.css'
+// components
+import Signup from './components/User/Signup/Signup'
+import LoginForm from './components/User/Login/login'
+import Navbar from './components/Navbar/navbar'
+import Home from './components/Home/home'
 
-import Nav from "./components/Nav";
-import Home from "./components/Home";
-import Login from "./components/User/Login";
-import SignUp from "./components/User/SignUp";
-
+import New from './components/NewArticle/newArticle'
+import Comments from './components/Comments/comments'
 
 class App extends Component {
-  render() {
-    return (  
-      <Router>
-        <div>
-          <Nav />
-          <Switch>
-            <Route exact path = "/" component={Home} />
-            <Route exact path = "/login" component = {Login} />
-            <Route exact path = "/signup" component = {SignUp} />
-          </Switch>
-        </div>
-      </Router>
-      );
+  state = {
+      loggedIn: false,
+      username: null
     }
+
+    getUser = this.getUser.bind(this)
+    componentDidMount = this.componentDidMount.bind(this)
+    updateUser = this.updateUser.bind(this)
+  
+
+  componentDidMount() {
+    this.getUser()
+  }
+
+  updateUser(userObject) {
+    this.setState(userObject)
+  }
+
+  getUser() {
+    axios.get('/user/').then(response => {
+      if (response.data.user) {
+        //YES USER
+        this.setState({
+          loggedIn: true,
+          username: response.data.user.username
+        })
+      } else {
+        //NO USER
+        this.setState({
+          loggedIn: false,
+          username: null
+        })
+      }
+    })
+  }
+
+  render() {
+    return (
+      <div className="App">
+
+        <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} username={this.state.username} />
+        
+        <Route exact path="/" render={()=> <Home loggedIn={this.state.loggedIn} /> } />
+        <Route path="/login" render={() => <LoginForm updateUser={this.updateUser} updateUser={this.updateUser}/>} />
+        <Route path="/signup" render={() => <Signup signup={this.signup}/>} />
+
+        <Route path="/newArticle" render={() => <New username={this.state.username} loggedIn={this.state.loggedIn} />} />
+        <Route exact path="/story/:id" component={Comments} />
+        
+      </div>
+    );
+  }
 }
 
 export default App;
