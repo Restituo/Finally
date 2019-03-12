@@ -16,7 +16,7 @@ class Comments extends Component {
 
     componentDidMount() {
         this.getUser()
-        this.getBook()
+        this.getStory()
         this.getComments()
     }
 
@@ -41,7 +41,7 @@ class Comments extends Component {
         })
     }
 
-    getBook = () => {
+    getStory = () => {
         axios.get("/api/story/" + this.props.match.params.id).then(res => {
             console.log(res.data)
             this.setState({ story: res.data.description, author: res.data.author })
@@ -107,7 +107,7 @@ class Comments extends Component {
                             type="submit">Submit</button>
                     </form>
                 ) : (
-                        <Link to={"/login"} className="btn btn-primary" id="logintoadd" role="button">Login to add to this story</Link>
+                        <Link to={"/login"} className="btn btn-primary" id="logintoadd" role="button">Login to post</Link>
                     )}
             </div>
         )
