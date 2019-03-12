@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const adventureSchema = new Schema({
+const topicSchema = new Schema({
   title: { type: String, required: true },
   author: { type: String, required: true },
   description: { type: String },
@@ -14,6 +14,6 @@ const adventureSchema = new Schema({
   ]
 });
 
-const Adventure = mongoose.model("Adventure", adventureSchema);
+const Topic = mongoose.model("Topic", topicSchema);
 
-module.exports = Adventure;
+module.exports = Topic;
