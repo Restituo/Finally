@@ -14,6 +14,7 @@ const userSchema = new Schema({
 // Define schema methods
 userSchema.methods = {
 	checkPassword: function (inputPassword) {
+		console.log('passwords',inputPassword, this.password)
 		return bcrypt.compareSync(inputPassword, this.password)
 	},
 	hashPassword: plainTextPassword => {
@@ -25,18 +26,19 @@ userSchema.methods = {
 userSchema.pre('save', function (next) {
 	if (!this.password) {
 		console.log('models/user.js no password');
+		// TODO
 		next();
 	} else {
 		console.log('models/user.js hashing');
 		
-		//this.password = this.hashPassword(this.password);
-		//next();
-		bcrypt.genSalt(10, function(err, salt) {
-			bcrypt.hash(this.password, salt, function(err, hash) {
-				this.password = hash;
-				next();
-			});
-		});
+		this.password = this.hashPassword(this.password);
+		next();
+		// bcrypt.genSalt(10, function(err, salt) {
+		// 	bcrypt.hash(this.password, salt, function(err, hash) {
+		// 		this.password = hash;
+		// 		next();
+		// 	});
+		// });
 		
 	}
 })

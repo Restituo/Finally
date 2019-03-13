@@ -33,13 +33,11 @@ class App extends Component {
   getUser() {
     axios.get('/user/').then(response => {
       if (response.data.user) {
-        //YES USER
         this.setState({
           loggedIn: true,
           username: response.data.user.username
         })
       } else {
-        //NO USER
         this.setState({
           loggedIn: false,
           username: null
@@ -54,9 +52,9 @@ class App extends Component {
 
         <Navbar updateUser={this.updateUser} loggedIn={this.state.loggedIn} username={this.state.username} />
         
-        <Route exact path="/" render={()=> <Home loggedIn={this.state.loggedIn} /> } />
-        <Route path="/login" render={() => <LoginForm updateUser={this.updateUser} updateUser={this.updateUser}/>} />
-        <Route path="/signup" render={() => <Signup signup={this.signup}/>} />
+        <Route exact path="/" render={()=> <Home loggedIn={this.state.loggedIn} username={this.state.username}/> } />
+        <Route path="/login" render={() => <LoginForm updateUser={this.updateUser}/>} />
+        <Route path="/signup" render={() => <Signup />} />
 
         <Route path="/newArticle" render={() => <New username={this.state.username} loggedIn={this.state.loggedIn} />} />
         <Route exact path="/story/:id" component={Comments} />

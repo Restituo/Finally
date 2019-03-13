@@ -50,7 +50,7 @@ class Navbar extends Component {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
                     <h1 className="navbar-brand">
-                        <NavLink to ="/" className="navbar-brand">Fake Reddit </NavLink>
+                        <NavLink to ="/" className="navbar-brand">Fake Reddit</NavLink>
                     </h1>
                     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#myNavBar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

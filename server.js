@@ -2,19 +2,19 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 const session = require('express-session')
 const passport = require('./passport');
 const user = require('./routes/user')
 const routes = require('./routes/api')
-const MongoStore = require('connect-mongo')(session)
+
 
 // Sessions
 app.use(
 	session({
-		secret: 'keyboard-cat', 
+		secret: 'bongo-cat', 
 		resave: false, //required
-		saveUninitialized: false //required
+		saveUninitialized: false, //required
 	})
 )
 
@@ -28,6 +28,18 @@ app.use(bodyParser.json());
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
+
+app.use((req, res, next) => {
+	console.log('url',req.url, req.method);
+	next()
+})
+
+//app.use(function(req, res, next) {
+  //res.header("Access-Control-Allow-Origin", "*");
+  //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Authorization, Accept");
+  //res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE, HEAD, OPTIONS");  
+  //next();
+//});
 
 // Connect to the Mongo DB
 mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/fakereddit");

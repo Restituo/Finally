@@ -57,7 +57,6 @@ class Comments extends Component {
 
     handleSubmit(event) {
         event.preventDefault()
-        console.log("hi sarah");
 
         const post = { author: this.state.username, body: this.state.comment, postId: this.props.match.params.id }
 

@@ -8,6 +8,7 @@ class Signup extends Component {
 	state = {
 			username: '',
 			password: '',
+			confirmPassword: '',
 			redirectTo: null
 
 	}
@@ -21,30 +22,26 @@ class Signup extends Component {
 	}
 	handleSubmit(event) {
 		event.preventDefault()
-		console.log('sign-up handleSubmit, username: ')
-		console.log(this.state.username)
 
 		//request to server to add a new username/password
 		axios.post('/user/', {
 			username: this.state.username,
 			password: this.state.password
-		})
-			.then(response => {
-				console.log(response)
-				if (!response.data.errmsg) {
-					console.log('successful signup')
-					//redirect to login page
-					this.setState({ 
-						redirectTo: '/login'
-					})
-				} else {
-					console.log('username already taken')
-				}
-			}).catch(error => {
-				console.log('signup error: ')
-				console.log(error)
+		}).then(response => {
+			console.log(response)
+			if (!response.data.errmsg) {
+				console.log('successful signup')
+				this.setState({ 
+					redirectTo: '/login'
+				})
+			} else {
+				console.log('username already taken')
+			}
+		}).catch(error => {
+			console.log('signup error: ')
+			console.log(error)
 
-			})
+		})
 	}
 
 
